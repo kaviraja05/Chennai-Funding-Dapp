@@ -2,8 +2,11 @@
   "name": "project1",
   "version": "1.0.0",
   "main": "index.js",
+  "homepage": "https://kaviraja05.github.io/project1",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "predeploy": "echo Preparing files to deploy...",
+    "deploy": "gh-pages -d frontend"
   },
   "keywords": [],
   "author": "",
@@ -11,6 +14,7 @@
   "description": "",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "gh-pages": "^6.3.0",
     "hardhat": "^2.24.0"
   },
   "dependencies": {
