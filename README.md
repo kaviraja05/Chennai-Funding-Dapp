@@ -2,6 +2,9 @@
 
 A transparent blockchain-based crowdfunding platform designed for local community initiatives in Chennai. This decentralized application (DApp) ensures transparency in donations and fund disbursement for community projects.
 
+## 🌐 Live Demo
+👉 [View DApp](https://kaviraja05.github.io/Chennai-Funding-Dapp/)
+
 ## Features
 
 - Create project proposals with funding goals, descriptions, and beneficiary addresses
