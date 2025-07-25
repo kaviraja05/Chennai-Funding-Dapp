@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chennai Community Project Funding</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Chennai Community Project Funding</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#create-project">Create Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#my-projects">My Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="connect-wallet" class="btn btn-light">Connect Wallet</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="wallet-status" class="alert alert-warning">
+                    Please connect your wallet to interact with the platform.
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="row mt-4 mb-5 fade-in" id="dashboard">
+            <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Projects</h5>
+                        <h2 class="display-4" id="total-projects">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-success text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Funded</h5>
+                        <h2 class="display-4" id="total-funded">0 ETH</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-info text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Projects</h5>
+                        <h2 class="display-4" id="active-projects">0</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                    <div class="card-body">
+                        <h5 class="card-title">Completed Projects</h5>
+                        <h2 class="display-4" id="completed-projects">0</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mt-5">
+            <h2>Community Projects</h2>
+
+            <!-- Search and Filter Controls -->
+            <div class="row mb-4 mt-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search projects..." id="project-search">
+                        <button class="btn btn-outline-secondary" type="button" id="search-button">Search</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-select" id="category-filter">
+                        <option value="all">All Categories</option>
+                        <option value="environment">Environment</option>
+                        <option value="education">Education</option>
+                        <option value="infrastructure">Infrastructure</option>
+                        <option value="health">Health</option>
+                        <option value="culture">Culture</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row mt-4" id="projects-container">
+                <!-- Projects will be loaded here dynamically -->
+                <div class="col-12 text-center loading-container">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Create Project Section -->
+        <section id="create-project" class="mt-5">
+            <h2>Create New Project</h2>
+            <div class="card">
+                <div class="card-body">
+                    <form id="project-form">
+                        <div class="mb-3">
+                            <label for="project-name" class="form-label">Project Name</label>
+                            <input type="text" class="form-control" id="project-name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-description" class="form-label">Description</label>
+                            <textarea class="form-control" id="project-description" rows="3" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-location" class="form-label">Location in Chennai</label>
+                            <input type="text" class="form-control" id="project-location" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-category" class="form-label">Category</label>
+                            <select class="form-select" id="project-category" required>
+                                <option value="">Select a category</option>
+                                <option value="environment">Environment</option>
+                                <option value="education">Education</option>
+                                <option value="infrastructure">Infrastructure</option>
+                                <option value="health">Health</option>
+                                <option value="culture">Culture</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="funding-goal" class="form-label">Funding Goal (ETH)</label>
+                            <input type="number" step="0.01" class="form-control" id="funding-goal" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="beneficiary" class="form-label">Beneficiary Address</label>
+                            <input type="text" class="form-control" id="beneficiary" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="project-image" class="form-label">Project Image (Optional)</label>
+                            <input type="file" class="form-control" id="project-image" accept="image/*">
+                            <div class="form-text">Add an image to make your project more appealing (max 2MB)</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" disabled>Create Project</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Projects Section -->
+        <section id="my-projects" class="mt-5">
+            <h2>My Projects</h2>
+            <ul class="nav nav-tabs" id="myProjectsTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="created-tab" data-bs-toggle="tab" data-bs-target="#created" type="button" role="tab">Created</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="donated-tab" data-bs-toggle="tab" data-bs-target="#donated" type="button" role="tab">Donated</button>
+                </li>
+            </ul>
+            <div class="tab-content mt-3" id="myProjectsContent">
+                <div class="tab-pane fade show active" id="created" role="tabpanel">
+                    <div id="created-projects-container">
+                        <!-- Created projects will be loaded here -->
+                        <p class="text-center">Connect your wallet to view your created projects.</p>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="donated" role="tabpanel">
+                    <div id="donated-projects-container">
+                        <!-- Donated projects will be loaded here -->
+                        <p class="text-center">Connect your wallet to view your donations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Details Modal -->
+        <div class="modal fade" id="project-details-modal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modal-project-title">Project Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="project-details-content">
+                            <!-- Project details with tabs will be loaded here dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notifications Container -->
+        <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+            <div id="toast-container"></div>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" title="Toggle dark/light mode">
+            <i class="bi bi-moon-fill"></i>
+        </button>
+
+        <!-- Clear Images Button (for debugging) -->
+        <button id="clear-images" title="Clear all project images" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; background-color: #dc3545; color: white; border: none; border-radius: 50%; width: 50px; height: 50px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+            <i class="bi bi-trash"></i>
+        </button>
+    </div>
+
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Chennai Community Project Funding</h5>
+                    <p>A transparent blockchain-based platform for funding local community initiatives in Chennai.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Built with Ethereum, Solidity, and Web3.js</p>
+                    <p>&copy; 2023 Chennai Community Project Funding</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- At the bottom of your body tag, before the closing </body> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+    <script>
+        // Load contract config
+        fetch('js/contract-config.js')
+            .then(response => response.text())
+            .then(text => {
+                // Extract the contract address from the module.exports
+                const match = text.match(/contractAddress:\s*["']([^"']+)["']/);
+                if (match && match[1]) {
+                    window.contractConfig = { contractAddress: match[1] };
+                    console.log('Loaded contract address from config:', window.contractConfig.contractAddress);
+                } else {
+                    console.error('Failed to parse contract address from config file');
+                }
+            })
+            .catch(error => console.error('Error loading contract config:', error));
+    </script>
+    <script src="js/contract-interaction.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Add this script to initialize the dashboard, notifications, and theme toggle -->
+    <script>
+        // Function to show notifications
+        function showNotification(message, type = 'success') {
+            const toastContainer = document.getElementById('toast-container');
+            const id = 'toast-' + Date.now();
+
+            const toast = document.createElement('div');
+            toast.className = `toast show bg-${type} text-white`;
+            toast.id = id;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+
+            toast.innerHTML = `
+                <div class="toast-header bg-${type} text-white">
+                    <strong class="me-auto">${type === 'success' ? 'Success' : type === 'danger' ? 'Error' : 'Notification'}</strong>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body">
+                    ${message}
+                </div>
+            `;
+
+            toastContainer.appendChild(toast);
+
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                toast.remove();
+            }, 5000);
+
+            // Add close button functionality
+            toast.querySelector('.btn-close').addEventListener('click', () => {
+                toast.remove();
+            });
+        }
+
+        // Initialize search and filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchButton = document.getElementById('search-button');
+            const searchInput = document.getElementById('project-search');
+            const categoryFilter = document.getElementById('category-filter');
+            const themeToggle = document.getElementById('theme-toggle');
+
+            // Initialize theme
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="bi bi-sun-fill"></i>';
+            }
+
+            // Theme toggle functionality
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-theme');
+                const isDark = document.body.classList.contains('dark-theme');
+
+                // Update icon
+                themeToggle.innerHTML = isDark ?
+                    '<i class="bi bi-sun-fill"></i>' :
+                    '<i class="bi bi-moon-fill"></i>';
+
+                // Save preference
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+                // Show notification
+                showNotification(`Switched to ${isDark ? 'dark' : 'light'} theme`, 'info');
+            });
+
+            // Search and filter functionality
+            if (searchButton && searchInput) {
+                searchButton.addEventListener('click', function() {
+                    const searchTerm = searchInput.value.toLowerCase();
+                    filterProjects(searchTerm, categoryFilter.value);
+                });
+
+                // Also trigger search on Enter key
+                searchInput.addEventListener('keyup', function(event) {
+                    if (event.key === 'Enter') {
+                        const searchTerm = searchInput.value.toLowerCase();
+                        filterProjects(searchTerm, categoryFilter.value);
+                    }
+                });
+            }
+
+            if (categoryFilter) {
+                categoryFilter.addEventListener('change', function() {
+                    const searchTerm = searchInput ? searchInput.value.toLowerCase() : '';
+                    filterProjects(searchTerm, categoryFilter.value);
+                });
+            }
+
+            // Simple project filtering function
+            function filterProjects(searchTerm, category) {
+                const projectCards = document.querySelectorAll('.project-card');
+
+                projectCards.forEach(card => {
+                    const cardTitle = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+                    const cardDescription = card.querySelector('.card-text')?.textContent.toLowerCase() || '';
+                    const cardCategory = card.dataset.category || 'all';
+
+                    const matchesSearch = searchTerm === '' ||
+                                         cardTitle.includes(searchTerm) ||
+                                         cardDescription.includes(searchTerm);
+
+                    const matchesCategory = category === 'all' || cardCategory === category;
+
+                    if (matchesSearch && matchesCategory) {
+                        card.closest('.col-md-4').style.display = 'block';
+                    } else {
+                        card.closest('.col-md-4').style.display = 'none';
+                    }
+                });
+
+                // Show a message if no projects match the filters
+                const visibleProjects = document.querySelectorAll('.project-card:not([style*="display: none"])');
+                const noResultsMessage = document.getElementById('no-results-message');
+
+                if (visibleProjects.length === 0) {
+                    if (!noResultsMessage) {
+                        const message = document.createElement('div');
+                        message.id = 'no-results-message';
+                        message.className = 'col-12 mt-4';
+                        message.innerHTML = `
+                            <div class="alert alert-info">
+                                No projects match your search criteria. Try adjusting your filters.
+                            </div>
+                        `;
+                        document.getElementById('projects-container').appendChild(message);
+                    }
+                } else if (noResultsMessage) {
+                    noResultsMessage.remove();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
