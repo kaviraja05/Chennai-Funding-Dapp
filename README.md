@@ -4,6 +4,7 @@ A transparent blockchain-based crowdfunding platform designed for local communit
 
 ## 🌐 Live Demo
 👉 [View DApp](https://kaviraja05.github.io/Chennai-Funding-Dapp/)
+Works on all browsers. MetaMask required for full functionality.
 
 ## Features
 
